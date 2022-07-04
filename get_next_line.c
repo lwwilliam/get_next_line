@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:54:57 by lwilliam          #+#    #+#             */
-/*   Updated: 2022/07/04 12:09:59 by lwilliam         ###   ########.fr       */
+/*   Updated: 2022/07/04 14:45:25 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ int	read_funct(int fd, char **buffer, int *x)
 	res = read(fd, *buffer, BUFFER_SIZE);
 	*x = res;
 	return(res);
+}
+
+void free_funct(char **str)
+{
+	if (str)
+	{
+		free(*str);
+		*str = NULL;
+	}
 }
 
 char *get_next_line(int fd)
@@ -39,7 +48,13 @@ char *get_next_line(int fd)
 		if (!res)
 			res = ft_strdup("");
 		temp = ft_strjoin(res, buffer);
-		
+		free_funct(&res);
+		res = temp;
+		if (ft_strchr(buffer, '\n'))
+			break;
 	}
-		
+	free_funct(&buffer)
+	if (x <= 1 || !res)
+		return (0);
+	return(1);
 }
