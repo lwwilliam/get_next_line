@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:54:57 by lwilliam          #+#    #+#             */
-/*   Updated: 2022/07/04 14:45:25 by lwilliam         ###   ########.fr       */
+/*   Updated: 2022/07/05 18:28:29 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	read_funct(int fd, char **buffer, int *x)
 	return(res);
 }
 
-void free_funct(char **str)
+void	free_funct(char **str)
 {
 	if (str)
 	{
@@ -30,7 +30,34 @@ void free_funct(char **str)
 	}
 }
 
-char *get_next_line(int fd)
+char	*get_line(char **str)
+{
+	size_t	x;
+	char	*temp;
+	char	*res;
+
+	x = 0;
+	while((*str)[x] && (*str)[x] != '\n')
+		x++;
+	if ((*str)[x])
+	{
+		res = ft_substr(*str, 0, x + 1);
+		temp = ft_strdup(*str + x + 1);
+		free_funct(str);
+		if (temp[0] != '\0')
+			*str = temp;
+		else
+			free_funct(&temp);
+	}
+	else
+	{
+		res = ft_strdup(*str);
+		free_funct(str);
+	}
+	return(res);
+}
+
+char	*get_next_line(int fd)
 {
 	static char	*res;
 	char	*buffer;
@@ -53,8 +80,8 @@ char *get_next_line(int fd)
 		if (ft_strchr(buffer, '\n'))
 			break;
 	}
-	free_funct(&buffer)
+	free_funct(&buffer);
 	if (x <= 1 || !res)
 		return (0);
-	return(1);
+	return(get_line(&res));
 }
