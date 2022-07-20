@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:54:57 by lwilliam          #+#    #+#             */
-/*   Updated: 2022/07/12 13:56:57 by lwilliam         ###   ########.fr       */
+/*   Updated: 2022/07/18 18:01:08 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*get_line(char **str)
 
 char	*get_next_line(int fd)
 {
-	static char	*res;
+	static char	*res[1024];
 	char		*buffer;
 	char		*temp;
 	int			x;
@@ -72,16 +72,16 @@ char	*get_next_line(int fd)
 	while (read_funct(fd, &buffer, &x) > 0)
 	{
 		buffer[x] = 0;
-		if (!res)
-			res = ft_strdup("");
-		temp = ft_strjoin(res, buffer);
-		free_funct(&res);
-		res = temp;
+		if (!res[fd])
+			res[fd] = ft_strdup("");
+		temp = ft_strjoin(res[fd], buffer);
+		free_funct(&res[fd]);
+		res[fd] = temp;
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
 	free_funct(&buffer);
-	if (x < 0 || (x == 0 && !res))
+	if (x < 0 || (x == 0 && !res[fd]))
 		return (0);
-	return (get_line(&res));
+	return (get_line(&res[fd]));
 }
