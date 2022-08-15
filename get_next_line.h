@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 17:55:32 by lwilliam          #+#    #+#             */
-/*   Updated: 2022/08/04 10:35:43 by lwilliam         ###   ########.fr       */
+/*   Updated: 2022/08/15 10:18:04 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *s);
